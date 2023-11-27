@@ -1,0 +1,19 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'CampingWebApp',
+      #directory : 'src',  
+      #platforms : [ #pharo ]
+    }
+  ],
+  #postLoading : [
+    'scripts/exportApp.st'
+  ],
+  #testing : { 
+    #failOnZeroTests : false
+    #categories : [ 'CampingWebApp-Tests' ],
+    #coverage : {
+      #packages : [ 'CampingWebApp' ]
+    }
+  }
+}
