@@ -29,64 +29,65 @@ CSCreationForm >> key [
 	          16r89 16rAB 16rCD 16rEF ) asByteArray.
 	d := TripleDES key: key.
 	d decryptBlock: s.
-	^ s asString
+	^ 's asString'
 ]
 
 { #category : #rendering }
 CSCreationForm >> renderHtmlOn: html [
 
-	self addComponent: WCCMap new named: #map on: html.
-	html div
-		class: 'form-group';
-		with: [
-			html label
-				for: 'name';
-				with: 'Campsite name'.
-			html textInput
-				class: 'form-control';
-				placeholder: 'An awesome campsite';
-				id: 'name' ].
-	html div
-		class: 'form-group';
-		with: [
-			html label
-				for: 'lat';
-				with: 'Latitude'.
-			html textInput
-				class: 'form-control';
-				placeholder: '0';
-				id: 'lat'.
-			html label
-				for: 'lng';
-				with: 'Longitude'.
-			html textInput
-				class: 'form-control';
-				placeholder: '0';
-				id: 'lng' ].
-	html div
-		class: 'form-group';
-		with: [
-			html label
-				for: 'description';
-				with: 'Description'.
-			html textArea
-				class: 'form-control';
-				id: #description;
-				rows: 10;
-				with: '' ].
+	
+			self addComponent: WCCMap new named: #map on: html.
+			html div
+				class: 'form-group';
+				with: [
+					html label
+						for: 'name';
+						with: 'Campsite name'.
+					html textInput
+						class: 'form-control';
+						placeholder: 'An awesome campsite';
+						id: 'name' ].
+			html div
+				class: 'form-group';
+				with: [
+					html label
+						for: 'lat';
+						with: 'Latitude'.
+					html textInput
+						class: 'form-control';
+						placeholder: '0';
+						id: 'lat'.
+					html label
+						for: 'lng';
+						with: 'Longitude'.
+					html textInput
+						class: 'form-control';
+						placeholder: '0';
+						id: 'lng' ].
+			html div
+				class: 'form-group';
+				with: [
+					html label
+						for: 'description';
+						with: 'Description'.
+					html textArea
+						class: 'form-control';
+						id: #description;
+						rows: 10;
+						with: '' ].
 
-	self
-		addComponent: (WCCButton new
-				 label: 'submit';
-				 yourself)
-		named: #submit
-		on: html
+			self
+				addComponent: (WCCButton new
+						 label: 'submit';
+						 yourself)
+				named: #submit
+				on: html 
 ]
 
 { #category : #rendering }
 CSCreationForm >> sendSubmission [
 
-	| cs |
+	| cs event |
 	cs := CampingSite new
 		      name: (self getElementById: #name) value;
 		      description: (self getElementById: #description) value;
@@ -95,9 +96,12 @@ CSCreationForm >> sendSubmission [
 		      yourself.
 	PjHttpClient new
 		getUrl:
-			'https://maker.ifttt.com/trigger/WCContrib/with/key/',self key,'?value1='
-			, cs asPhxJsonString
-		do: [  ]
+			'https://maker.ifttt.com/trigger/WCContrib/with/key/' , self key
+			, '?value1=' , cs asPhxJsonString
+		do: [  ].
+	event := Event new: 'submitted'.
+	event js_at: #submission put: cs.
+	self dispatchEvent: event
 ]
 
 { #category : #rendering }

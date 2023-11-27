@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 CSCreateWebApp class >> rootComponentClass [
 
-	^CSCreationForm 
+	^ CSCreationProcess
 ]
 
 { #category : #accessing }

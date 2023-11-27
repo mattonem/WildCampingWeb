@@ -2,6 +2,7 @@ Class {
 	#name : #CampingSite,
 	#superclass : #Object,
 	#instVars : [
+		'id',
 		'name',
 		'coordinates',
 		'attributes',
@@ -65,8 +66,22 @@ CampingSite >> description: anObject [
 ]
 
 { #category : #accessing }
-CampingSite >> initialize [ 
+CampingSite >> id [
+
+	^ id
+]
+
+{ #category : #accessing }
+CampingSite >> id: anObject [
+
+	id := anObject
+]
+
+{ #category : #accessing }
+CampingSite >> initialize [
+
 	attributes := Set new.
+	id := WCUUIDGeneratorWrapper next
 ]
 
 { #category : #accessing }
