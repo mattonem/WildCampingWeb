@@ -29,7 +29,7 @@ CSCreationForm >> key [
 	          16r89 16rAB 16rCD 16rEF ) asByteArray.
 	d := TripleDES key: key.
 	d decryptBlock: s.
-	^ 's asString'
+	^ s asString
 ]
 
 { #category : #rendering }
