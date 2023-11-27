@@ -10,7 +10,7 @@ SmalltalkCISpec {
     'scripts/exportApp.st'
   ],
   #testing : { 
-    #failOnZeroTests : false
+    #failOnZeroTests : false,
     #categories : [ 'CampingWebApp-Tests' ],
     #coverage : {
       #packages : [ 'CampingWebApp' ]
