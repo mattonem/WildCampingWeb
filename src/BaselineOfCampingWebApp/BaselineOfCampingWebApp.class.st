@@ -16,7 +16,10 @@ BaselineOfCampingWebApp >> baseline: spec [
 		spec
 			baseline: 'Camping'
 			with: [ spec repository: 'github://mattonem/WildCamping' ].
+			spec
+			baseline: 'PjHttpClient'
+			with: [ spec repository: 'github://mattonem/RestClientApp:master' ].
 		spec
 			package: #CampingWebApp
-			with: [ spec requires: #( Camping Cryptography ) ] ]
+			with: [ spec requires: #( Camping Cryptography PjHttpClient ) ] ]
 ]
