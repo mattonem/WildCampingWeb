@@ -12,8 +12,9 @@ Class {
 { #category : #rendering }
 CSCreationSubmitted >> renderHtmlOn: html [
 
-	html image url: (self urlForRessourceNamed: #'check-circle-svgrepo-com.svg').
-	
+	html image url:
+		(self urlForRessourceNamed: #'check-circle-svgrepo-com.svg'); style: 'max-width: 200px;'.
+
 	html heading
 		level: 1;
 		id: #main;

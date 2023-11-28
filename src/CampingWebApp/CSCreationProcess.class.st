@@ -9,19 +9,31 @@ Class {
 { #category : #rendering }
 CSCreationProcess >> createFormComponent [
 
-	^ CSUpdateForm new submission: (CSSubmission new
-	type: #create;
-			   campsite: CampingSite new;
-			   yourself)
+	^ CSUpdateForm new 
+			   campsite: CampingSite new; yourself.
 ]
 
 { #category : #rendering }
 CSCreationProcess >> renderHtmlOn: html [
 
-	html div
-		id: 'main';
-		style: 'display: contents;';
-		with: [ self addComponent: self createFormComponent named: #form on: html ]
+	html div class: 'container';
+	with: [html div
+		class: 'card';
+		with: [
+			html div
+				class: 'card-body';
+				with: [
+					html heading
+						level: 1;
+						with: 'New campsite'.
+					html div
+						id: 'main';
+						style: 'display: contents;';
+						with: [
+							self
+								addComponent: self createFormComponent
+								named: #form
+								on: html ] ] ]]
 ]
 
 { #category : #rendering }

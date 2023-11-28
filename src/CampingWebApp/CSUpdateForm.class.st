@@ -4,10 +4,22 @@ Class {
 	#traits : 'InstanceComponentHolder',
 	#classTraits : 'InstanceComponentHolder classTrait',
 	#instVars : [
-		'submission'
+		'campsite'
 	],
 	#category : #CampingWebApp
 }
+
+{ #category : #accessing }
+CSUpdateForm >> campsite [
+
+	^ campsite
+]
+
+{ #category : #accessing }
+CSUpdateForm >> campsite: anObject [
+
+	campsite := anObject
+]
 
 { #category : #rendering }
 CSUpdateForm >> key [
@@ -32,78 +44,92 @@ CSUpdateForm >> key [
 	          16r89 16rAB 16rCD 16rEF ) asByteArray.
 	d := TripleDES key: key.
 	d decryptBlock: s.
-	^ s asString
+	^ 's asString'
 ]
 
 { #category : #rendering }
 CSUpdateForm >> renderHtmlOn: html [
 
-	
-			self addComponent: WCCMap new named: #map on: html.
-			html div
-				class: 'form-group';
-				with: [
-					html label
-						for: 'name';
-						with: 'Campsite name'.
-					html textInput
-						class: 'form-control';
-						placeholder: 'An awesome campsite';
-						id: 'name' ].
-			html div
-				class: 'form-group';
-				with: [
-					html label
-						for: 'lat';
-						with: 'Latitude'.
-					html textInput
-						class: 'form-control';
-						placeholder: '0';
-						id: 'lat'.
-					html label
-						for: 'lng';
-						with: 'Longitude'.
-					html textInput
-						class: 'form-control';
-						placeholder: '0';
-						id: 'lng' ].
-			html div
-				class: 'form-group';
-				with: [
-					html label
-						for: 'description';
-						with: 'Description'.
-					html textArea
-						class: 'form-control';
-						id: #description;
-						rows: 10;
-						with: '' ].
-
-			self
-				addComponent: (WCCButton new
-						 label: 'submit';
-						 yourself)
-				named: #submit
-				on: html 
+	self addComponent: WCCMap new named: #map on: html.
+	html div
+		class: 'form-group';
+		with: [
+			html label
+				for: 'name';
+				with: 'Campsite name'.
+			html textInput
+				class: 'form-control';
+				placeholder: 'An awesome campsite';
+				id: 'name' ].
+	html div
+		class: 'form-group';
+		with: [
+			html label
+				for: 'lat';
+				with: 'Latitude'.
+			html textInput
+				class: 'form-control';
+				placeholder: '0';
+				id: 'lat'.
+			html label
+				for: 'lng';
+				with: 'Longitude'.
+			html textInput
+				class: 'form-control';
+				placeholder: '0';
+				id: 'lng' ].
+	html div
+		class: 'form-group';
+		with: [
+			html label
+				for: 'description';
+				with: 'Description'.
+			html textArea
+				class: 'form-control';
+				id: #description;
+				rows: 5;
+				with: '' ].
+	html div
+		class: 'form-group';
+		with: [
+			html label
+				for: 'name';
+				with: 'Your email address'.
+			html textInput
+				class: 'form-control';
+				placeholder: '';
+				id: 'email' ].
+	self
+		addComponent: (WCCButton new
+				 label: 'submit';
+				 yourself)
+		named: #submit
+		on: html
 ]
 
 { #category : #rendering }
 CSUpdateForm >> sendSubmission [
 
-	| sub event |
-	sub := submission campsite
-		      name: (self getElementById: #name) value;
-		      description: (self getElementById: #description) value;
-		      coordinates: (self getElementById: #lat) value asNumber
-			      @ (self getElementById: #lng) value asNumber;
-		      yourself.
+	| event submission |
+	(self componentNamed: #submit) disable.
+	submission := CSSubmission new
+		              type: #post;
+		              campsite: (campsite
+				               name: (self getElementById: #name) value;
+				               description:
+					               (self getElementById: #description) value;
+				               coordinates:
+					               (self getElementById: #lat) value asNumber
+					               @ (self getElementById: #lng) value asNumber;
+				               yourself).
+	submission email: (self getElementById: #email) value.
 	PjHttpClient new
 		getUrl:
 			'https://maker.ifttt.com/trigger/WCContrib/with/key/' , self key
-			, '?value1=' , sub asPhxJsonString
+			, '?value1=' , submission asPhxJsonString
 		do: [
 			event := Event new: 'submitted'.
-			event js_at: #submission put: sub.
+			event js_at: #submission put: submission.
 			self dispatchEvent: event ]
 ]
 
@@ -131,18 +157,6 @@ CSUpdateForm >> start [
 			on: 'drag'
 			do: [ :e | self updateCoordinate: marker ] ].
 	(self componentNamed: #submit) onClick: [ :e | self sendSubmission ]
-]
-
-{ #category : #accessing }
-CSUpdateForm >> submission [
-
-	^ submission
-]
-
-{ #category : #accessing }
-CSUpdateForm >> submission: anObject [
-
-	submission := anObject
 ]
 
 { #category : #rendering }

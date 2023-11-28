@@ -3,22 +3,23 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'id',
-		'campsite',
-		'type'
+		'data',
+		'type',
+		'email'
 	],
 	#category : #CampingWebApp
 }
 
 { #category : #accessing }
-CSSubmission >> campsite [
+CSSubmission >> campsite: anObject [
 
-	^ campsite
+	data := anObject asDataModel
 ]
 
 { #category : #accessing }
-CSSubmission >> campsite: anObject [
+CSSubmission >> email: anObject [
 
-	campsite := anObject
+	email := anObject
 ]
 
 { #category : #accessing }

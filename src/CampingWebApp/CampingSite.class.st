@@ -30,6 +30,17 @@ CampingSite class >> defaultSite: aUID ifPresent: aBlock ifAbsent: anotherBlock 
 ]
 
 { #category : #accessing }
+CampingSite >> asDataModel [
+	^ self asDataModelV1
+]
+
+{ #category : #accessing }
+CampingSite >> asDataModelV1 [
+
+	^ CampingSiteDataModelV1 new id: id; description: description; name: name; coordinates: coordinates 
+]
+
+{ #category : #accessing }
 CampingSite >> attributes [
 
 	^ attributes
@@ -63,6 +74,15 @@ CampingSite >> description [
 CampingSite >> description: anObject [
 
 	description := anObject
+]
+
+{ #category : #accessing }
+CampingSite >> fromDataModelV1:anObject [
+
+	id := anObject id.
+	coordinates  := anObject  coordinates.
+	description := anObject description. 
+	name := anObject name. 
 ]
 
 { #category : #accessing }
