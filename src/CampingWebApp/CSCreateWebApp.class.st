@@ -11,10 +11,10 @@ CSCreateWebApp class >> rootComponentClass [
 ]
 
 { #category : #accessing }
-CSCreateWebApp class >> staticComponentsSerialized [
+CSCreateWebApp class >> staticComponentSerialized [
 
 	<jsLiteralGenerator>
-	^ self _staticComponents asPhxJsonString
+	^ component asPhxJsonString
 ]
 
 { #category : #'as yet unclassified' }
