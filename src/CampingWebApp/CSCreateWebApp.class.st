@@ -17,6 +17,14 @@ CSCreateWebApp class >> staticComponentsSerialized [
 	^ self _staticComponents asPhxJsonString
 ]
 
+{ #category : #'as yet unclassified' }
+CSCreateWebApp class >> staticFoldersToExpose [
+
+	<pharoJsSkip>
+	^ { (#ressources -> (self repositoryPath / 'build' / 'ressources')) }
+		  asDictionary
+]
+
 { #category : #accessing }
 CSCreateWebApp class >> updateHtmlRoot: root [
 

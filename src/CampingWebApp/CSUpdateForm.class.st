@@ -1,13 +1,16 @@
 Class {
-	#name : #CSCreationForm,
+	#name : #CSUpdateForm,
 	#superclass : #WCComponent,
 	#traits : 'InstanceComponentHolder',
 	#classTraits : 'InstanceComponentHolder classTrait',
+	#instVars : [
+		'submission'
+	],
 	#category : #CampingWebApp
 }
 
 { #category : #rendering }
-CSCreationForm >> key [
+CSUpdateForm >> key [
 	"
 	| k key d |
 	k := 'key' asByteArray.
@@ -33,7 +36,7 @@ CSCreationForm >> key [
 ]
 
 { #category : #rendering }
-CSCreationForm >> renderHtmlOn: html [
+CSUpdateForm >> renderHtmlOn: html [
 
 	
 			self addComponent: WCCMap new named: #map on: html.
@@ -85,10 +88,10 @@ CSCreationForm >> renderHtmlOn: html [
 ]
 
 { #category : #rendering }
-CSCreationForm >> sendSubmission [
+CSUpdateForm >> sendSubmission [
 
-	| cs event |
-	cs := CampingSite new
+	| sub event |
+	sub := submission campsite
 		      name: (self getElementById: #name) value;
 		      description: (self getElementById: #description) value;
 		      coordinates: (self getElementById: #lat) value asNumber
@@ -97,15 +100,15 @@ CSCreationForm >> sendSubmission [
 	PjHttpClient new
 		getUrl:
 			'https://maker.ifttt.com/trigger/WCContrib/with/key/' , self key
-			, '?value1=' , cs asPhxJsonString
-		do: [  ].
-	event := Event new: 'submitted'.
-	event js_at: #submission put: cs.
-	self dispatchEvent: event
+			, '?value1=' , sub asPhxJsonString
+		do: [
+			event := Event new: 'submitted'.
+			event js_at: #submission put: sub.
+			self dispatchEvent: event ]
 ]
 
 { #category : #rendering }
-CSCreationForm >> start [
+CSUpdateForm >> start [
 
 	super start.
 	self initializeComponentHolder.
@@ -130,8 +133,20 @@ CSCreationForm >> start [
 	(self componentNamed: #submit) onClick: [ :e | self sendSubmission ]
 ]
 
+{ #category : #accessing }
+CSUpdateForm >> submission [
+
+	^ submission
+]
+
+{ #category : #accessing }
+CSUpdateForm >> submission: anObject [
+
+	submission := anObject
+]
+
 { #category : #rendering }
-CSCreationForm >> updateCoordinate: marker [
+CSUpdateForm >> updateCoordinate: marker [
 
 	| markerPos |
 	markerPos := marker getLatLng.
