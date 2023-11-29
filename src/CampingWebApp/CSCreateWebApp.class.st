@@ -12,10 +12,11 @@ CSCreateWebApp class >> db [
 
 	<pharoJsSkip>
 	^ WCGeoHashDB new
-		  rootFolder: self repositoryPath / 'build' / 'data';
+		  rootFolder: self repository location / 'build' / 'data';
 		  coords: #coordinates;
 		  precision: 9;
-		  ids: #id yourself
+		  ids: #id;
+		  yourself
 ]
 
 { #category : #'as yet unclassified' }
