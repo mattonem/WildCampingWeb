@@ -17,6 +17,11 @@ CSSubmission >> campsite: anObject [
 ]
 
 { #category : #accessing }
+CSSubmission >> data [ 	
+	^ data
+]
+
+{ #category : #accessing }
 CSSubmission >> email: anObject [
 
 	email := anObject
