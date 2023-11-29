@@ -66,3 +66,19 @@ CSCreateWebApp class >> updateHtmlRoot: root [
 	root javascript url:
 		'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'
 ]
+
+{ #category : #accessing }
+CSCreateWebApp class >> writeObjectFromString: string [
+
+	<pharoJsSkip>
+	| db csdm |
+	db := WCGeoHashDB new
+		      rootFolder: CSCreateWebApp repositoryPath / 'build' / 'data';
+		      coords: #coordinates;
+		      precision: 9;
+		      ids: #id yourself.
+	csdm := (PhxJsonReader readFromString: string) data.
+
+	db write: csdm.
+	db deleteIndex
+]
