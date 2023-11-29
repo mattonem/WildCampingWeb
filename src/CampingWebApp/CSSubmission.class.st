@@ -17,7 +17,8 @@ CSSubmission >> campsite: anObject [
 ]
 
 { #category : #accessing }
-CSSubmission >> data [ 	
+CSSubmission >> data [
+
 	^ data
 ]
 
