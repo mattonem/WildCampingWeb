@@ -39,6 +39,5 @@ submission := anObject
 { #category : #rendering }
 CSCreationSubmitted >> urlForRessourceNamed: aRessourceName [
 
-	console log: self class ressourcePrefix.
 	^ CSCreateWebApp ressourcePrefix , '/ressources/' , aRessourceName
 ]
