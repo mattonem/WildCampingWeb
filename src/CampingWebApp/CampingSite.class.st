@@ -11,24 +11,6 @@ Class {
 	#category : #CampingWebApp
 }
 
-{ #category : #'as yet unclassified' }
-CampingSite class >> defaultSite [
-
-	^ self new
-		  coordinates: 50 @ 20;
-		  name: 'Lovely campsite';
-		  attributes: {CampsiteDrinkingWater instance. CampsiteRunningWater instance};
-		  yourself
-]
-
-{ #category : #'as yet unclassified' }
-CampingSite class >> defaultSite: aUID ifPresent: aBlock ifAbsent: anotherBlock [
-	^ { ('123' -> self defaultSite) } asDictionary
-		  at: aUID
-		  ifPresent: aBlock
-		  ifAbsent: anotherBlock
-]
-
 { #category : #accessing }
 CampingSite >> asDataModel [
 	^ self asDataModelV1
