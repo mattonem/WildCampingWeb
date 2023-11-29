@@ -8,6 +8,23 @@ Class {
 }
 
 { #category : #accessing }
+CSCreateWebApp class >> db [
+
+	<pharoJsSkip>
+	^ WCGeoHashDB new
+		  rootFolder: self repositoryPath / 'build' / 'data';
+		  coords: #coordinates;
+		  precision: 9;
+		  ids: #id yourself
+]
+
+{ #category : #'as yet unclassified' }
+CSCreateWebApp class >> deleteIndex [
+<pharoJsSkip>
+	self db deleteIndex
+]
+
+{ #category : #accessing }
 CSCreateWebApp class >> getRessourcePrefix [
 
 	<javascript: 'return this.pj_getSerializePrefix()'>
@@ -19,6 +36,15 @@ CSCreateWebApp class >> getSerializePrefix [
 
 	<jsLiteralGenerator>
 	^ ressourcePrefix
+]
+
+{ #category : #accessing }
+CSCreateWebApp class >> makeIndex [
+
+	<pharoJsSkip>
+	| db  |
+	db := self db.
+	db createIndex
 ]
 
 { #category : #accessing }
@@ -72,11 +98,7 @@ CSCreateWebApp class >> writeObjectFromString: string [
 
 	<pharoJsSkip>
 	| db csdm |
-	db := WCGeoHashDB new
-		      rootFolder: CSCreateWebApp repositoryPath / 'build' / 'data';
-		      coords: #coordinates;
-		      precision: 9;
-		      ids: #id yourself.
+	db := self db.
 	csdm := (PhxJsonReader readFromString: string) data.
 
 	db write: csdm.
