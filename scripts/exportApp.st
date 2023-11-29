@@ -1,3 +1,3 @@
 CSCreateWebApp appFolder: './build/post' asFileLocatorOrReference  ensureCreateDirectory.
-CSCreationSubmitted ressourcePrefix: '..'
+CSCreateWebApp ressourcePrefix: '..'
 CSCreateWebApp exportApp.
