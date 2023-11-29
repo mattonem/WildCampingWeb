@@ -1,8 +1,38 @@
 Class {
 	#name : #CSCreateWebApp,
 	#superclass : #WCComponentApp,
+	#classInstVars : [
+		'ressourcePrefix'
+	],
 	#category : #CampingWebApp
 }
+
+{ #category : #accessing }
+CSCreateWebApp class >> getRessourcePrefix [
+
+	<javascript: 'return this.pj_getSerializePrefix()'>
+	^ '.'
+]
+
+{ #category : #accessing }
+CSCreateWebApp class >> getSerializePrefix [
+
+	<jsLiteralGenerator>
+	^ ressourcePrefix
+]
+
+{ #category : #accessing }
+CSCreateWebApp class >> ressourcePrefix [
+
+	^ ressourcePrefix ifNil: [
+		  ressourcePrefix := self getRessourcePrefix ]
+]
+
+{ #category : #accessing }
+CSCreateWebApp class >> ressourcePrefix: anObject [
+
+	ressourcePrefix := anObject
+]
 
 { #category : #accessing }
 CSCreateWebApp class >> rootComponentClass [

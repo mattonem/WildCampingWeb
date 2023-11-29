@@ -7,38 +7,10 @@ Class {
 		'submission'
 	],
 	#classInstVars : [
-		'staticComponents',
-		'ressourcePrefix'
+		'staticComponents'
 	],
 	#category : #CampingWebApp
 }
-
-{ #category : #accessing }
-CSCreationSubmitted class >> getRessourcePrefix [
-
-	<javascript: 'return this.pj_getSerializePrefix()'>
-	^ '.'
-]
-
-{ #category : #accessing }
-CSCreationSubmitted class >> getSerializePrefix [
-
-	
-	<jsLiteralGenerator>
-	^ ressourcePrefix 
-]
-
-{ #category : #accessing }
-CSCreationSubmitted class >> ressourcePrefix [
-
-	^ ressourcePrefix ifNil: [ ressourcePrefix := self getRessourcePrefix ]
-]
-
-{ #category : #accessing }
-CSCreationSubmitted class >> ressourcePrefix: anObject [
-
-	ressourcePrefix := anObject
-]
 
 { #category : #rendering }
 CSCreationSubmitted >> renderHtmlOn: html [
@@ -68,5 +40,5 @@ submission := anObject
 CSCreationSubmitted >> urlForRessourceNamed: aRessourceName [
 
 	console log: self class ressourcePrefix.
-	^ self class ressourcePrefix , '/ressources/' , aRessourceName
+	^ CSCreateWebApp ressourcePrefix , '/ressources/' , aRessourceName
 ]
