@@ -3,7 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'id',
-		'name',
 		'coordinates',
 		'attributes',
 		'description'
@@ -13,13 +12,17 @@ Class {
 
 { #category : #accessing }
 CampingSite >> asDataModel [
-	^ self asDataModelV1
+
+	^ self asDataModelV2
 ]
 
 { #category : #accessing }
-CampingSite >> asDataModelV1 [
+CampingSite >> asDataModelV2 [
 
-	^ CampingSiteDataModelV1 new id: id; description: description; name: name; coordinates: coordinates 
+	^ CampingSiteDataModelV2 new
+		  id: id;
+		  description: description;
+		  coordinates: coordinates
 ]
 
 { #category : #accessing }
@@ -59,12 +62,20 @@ CampingSite >> description: anObject [
 ]
 
 { #category : #accessing }
-CampingSite >> fromDataModelV1:anObject [
+CampingSite >> fromDataModelV1: anObject [
 
 	id := anObject id.
-	coordinates  := anObject  coordinates.
-	description := anObject description. 
-	name := anObject name. 
+	coordinates := anObject coordinates.
+	description := anObject description.
+
+]
+
+{ #category : #accessing }
+CampingSite >> fromDataModelV2: anObject [
+
+	id := anObject id.
+	coordinates := anObject coordinates.
+	description := anObject description
 ]
 
 { #category : #accessing }
@@ -84,16 +95,4 @@ CampingSite >> initialize [
 
 	attributes := Set new.
 	id := WCUUIDGeneratorWrapper next
-]
-
-{ #category : #accessing }
-CampingSite >> name [
-
-	^ name
-]
-
-{ #category : #accessing }
-CampingSite >> name: anObject [
-
-	name := anObject
 ]

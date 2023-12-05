@@ -82,6 +82,15 @@ CSCreateWebApp class >> staticFoldersToExpose [
 		  asDictionary
 ]
 
+{ #category : #'as yet unclassified' }
+CSCreateWebApp class >> updateDataModel [
+
+	<pharoJsSkip>
+	self db allObjectsDo: [ :anObject | |csdm|
+		csdm := CampingSite new fromDataModelV1: anObject.
+		self db write: csdm asDataModel. ]
+]
+
 { #category : #accessing }
 CSCreateWebApp class >> updateHtmlRoot: root [
 
