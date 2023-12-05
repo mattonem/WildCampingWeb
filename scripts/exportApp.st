@@ -10,3 +10,7 @@ CSCreateWebApp appFolder: './build/post' asFileLocatorOrReference  ensureCreateD
 CSCreateWebApp ressourcePrefix: '..'.
 CSCreateWebApp makeIndex.
 CSCreateWebApp exportApp.
+
+
+CSIndexWebApp appFolder: './build/' asFileLocatorOrReference  ensureCreateDirectory.
+CSIndexWebApp exportApp.
