@@ -10,6 +10,11 @@ Class {
 	#category : #CampingWebApp
 }
 
+{ #category : #'instance creation' }
+CampingSite class >> fromDataModel: aString [
+	^ CampingSite new fromDataModelV2: aString.
+]
+
 { #category : #accessing }
 CampingSite >> asDataModel [
 
