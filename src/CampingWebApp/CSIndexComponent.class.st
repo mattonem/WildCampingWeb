@@ -17,24 +17,6 @@ CSIndexComponent >> _getLocationHash [
 ]
 
 { #category : #'initialize-release' }
-CSIndexComponent >> calculate [
-
-	| region regions ghs |
-	region := (self componentNamed: #map) getBounds.
-	regions := WCGeoHash divideRegion: region.
-	ghs := WCGeoHash hashesCoverRegion: region precision: 9.
-	(self componentNamed: #map) removeAllLayers.
-	ghs do: [ :aGh |
-		db getObjectsIn: aGh do: [ :object |
-			| marker  |
-			marker := (self componentNamed: #map)
-				          addMarker: (object at: #coordinates)
-				         .
-
-			marker bindPopup: (object at: #id) ] ]
-]
-
-{ #category : #'initialize-release' }
 CSIndexComponent >> calculateCurrentSelection: aUuid [
 
 	| region regions ghs |
@@ -43,15 +25,19 @@ CSIndexComponent >> calculateCurrentSelection: aUuid [
 	ghs := WCGeoHash hashesCoverRegion: region precision: 9.
 	(self componentNamed: #map) removeAllLayers.
 	ghs do: [ :aGh |
-		db getObjectsIn: aGh do: [ :object |
-			| marker color |
+		db getObjectsIn: aGh do: [ :dataModel |
+			| marker color object |
+			object := CampingSite fromDataModel: dataModel.
 			color := object id = aUuid
 				         ifTrue: [ '#e642f5' ]
 				         ifFalse: [ '#4287f5' ].
 			marker := (self componentNamed: #map)
 				          addMarker: (object at: #coordinates)
 				          with: { (#color -> color) } asJsObject.
-
+			marker
+				on: 'click'
+				do: [ window location href: '#' , object id. 
+					 ].
 			marker bindPopup: (object at: #id) ] ]
 ]
 
