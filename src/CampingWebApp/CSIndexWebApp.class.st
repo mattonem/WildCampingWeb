@@ -42,5 +42,8 @@ CSIndexWebApp class >> updateHtmlRoot: root [
 	root stylesheet url:
 		'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'.
 	root javascript url:
-		'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'
+		'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'.
+	root link
+		url: './ressources/tent.svg';
+		relationship: 'icon'
 ]
