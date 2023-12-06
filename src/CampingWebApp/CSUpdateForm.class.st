@@ -55,16 +55,6 @@ CSUpdateForm >> renderHtmlOn: html [
 		class: 'form-group';
 		with: [
 			html label
-				for: 'name';
-				with: 'Campsite name'.
-			html textInput
-				class: 'form-control';
-				placeholder: 'An awesome campsite';
-				id: 'name' ].
-	html div
-		class: 'form-group';
-		with: [
-			html label
 				for: 'lat';
 				with: 'Latitude'.
 			html textInput
