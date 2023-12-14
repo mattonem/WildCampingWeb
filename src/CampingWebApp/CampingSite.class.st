@@ -67,15 +67,6 @@ CampingSite >> description: anObject [
 ]
 
 { #category : #accessing }
-CampingSite >> fromDataModelV1: anObject [
-
-	id := anObject id.
-	coordinates := anObject coordinates.
-	description := anObject description.
-
-]
-
-{ #category : #accessing }
 CampingSite >> fromDataModelV2: anObject [
 
 	id := anObject id.

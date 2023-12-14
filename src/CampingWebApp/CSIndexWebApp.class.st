@@ -28,8 +28,8 @@ CSIndexWebApp class >> staticComponentSerialized [
 CSIndexWebApp class >> staticFoldersToExpose [
 
 	<pharoJsSkip>
-	^ { (#ressources -> (self repositoryPath / 'build' / 'ressources')).
-	(#data -> (self repositoryPath / 'build' / 'data')) }
+	^ { (#ressources -> (self repositoryFolder / 'build' / 'ressources')).
+	(#data -> (self repositoryFolder / 'build' / 'data')) }
 		  asDictionary
 ]
 

@@ -78,7 +78,7 @@ CSCreateWebApp class >> staticComponentSerialized [
 CSCreateWebApp class >> staticFoldersToExpose [
 
 	<pharoJsSkip>
-	^ { (#ressources -> (self repositoryPath / 'build' / 'ressources')) }
+	^ { (#ressources -> (self repositoryFolder / 'build' / 'ressources')) }
 		  asDictionary
 ]
 
